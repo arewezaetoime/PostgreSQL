@@ -1,0 +1,68 @@
+import postgresql
+
+ALTER TABLE employees
+ALTER COLUMN salary SET not null,
+ALTER COLUMN salary SET default 0,
+ALTER COLUMN hiring_date SET not null;
+
+
+ALTER TABLE employees
+ALTER COLUMN middle_name TYPE varchar(100);
+
+TRUNCATE TABLE issues CASCADE;
+
+DROP TABLE departments CASCADE;
+
+
+CREATE DATABASE minions_db;
+
+CREATE TABLE IF NOT EXISTS minions(
+	  id SERIAL PRIMARY KEY
+	, name VARCHAR(30)
+	, age INT
+);
+
+ALTER TABLE minions
+RENAME TO minions_info;
+
+ALTER TABLE minions_info
+  ADD COLUMN code CHAR(4)
+, ADD COLUMN task TEXT
+, ADD COLUMN salary NUMERIC(8, 3);
+
+ALTER TABLE minions_info
+ADD COLUMN email VARCHAR(20),
+ADD COLUMN equipped BOOLEAN NOT NULL;
+
+ALTER TABLE minions_info
+RENAME COLUMN salary TO banana;
+
+CREATE TYPE type_mood
+AS ENUM (
+	  'happy'
+	, 'relaxed'
+	, 'stressed'
+	, 'sad'
+);
+
+ALTER TABLE minions_info
+ADD COLUMN mood type_mood;
+
+
+ALTER TABLE minions_info
+
+ADD CONSTRAINT unique_constraint
+UNIQUE (id, email),
+
+ADD CONSTRAINT banana_check
+CHECK (banana > 0);
+
+-- # change columns data type #9ta zadacha
+
+ALTER TABLE minions_info
+ALTER COLUMN task TYPE VARCHAR(150);
+
+-- # drop constraints 10ta zadacha
+
+ALTER TABLE minions_info
+ALTER COLUMN equipped DROP NOT NULL;
